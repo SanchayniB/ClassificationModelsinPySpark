@@ -54,7 +54,7 @@ Default_60_89ds.add('Defaulter',  df[df['SeriousDlqin2yrs'] == 1.0 ]['NumberOfTi
 Default_60_89ds.render_to_file('Default_60_89ds.svg')
 
 ```
-<img src="https://github.com/SanchayniB/ClassificationModelsinPySpark/blob/master/SubImages/EDA/Age_SD.PNG"> 
+<center> <img src="https://github.com/SanchayniB/ClassificationModelsinPySpark/blob/master/SubImages/EDA/60_89_SD.PNG" alt="histplot" width="300"> </center> 
 
 Boxplot
 ``` Spark
@@ -65,7 +65,7 @@ BP_age_default.add('Non Defaulter', df[df['SeriousDlqin2yrs'] == 0.0].age)
 BP_age_default.render_to_file('BP_age_default.svg')
 ``` 
 
-![BoxplotAge](SubImages/EDA/Age_SD.png)
+<img src="https://github.com/SanchayniB/ClassificationModelsinPySpark/blob/master/SubImages/EDA/Age_SD.PNG" alt="boxplot" width="300"> 
 
 ## (3) Data processing and transformation 
 ### Imputation
