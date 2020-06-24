@@ -1,7 +1,7 @@
 # ClassificationModelsinPySpark
 ## Comparing performance of various classification models in PySpark library ML
 
-Advisor: Prof. Joseph Rosen                                                  
+**Advisor: Prof. Joseph Rosen**<br>                                                
 
 The aim of this project was to get hands-on experince in building machine learning models using big data tool, understand the difference between modeling python package like sklearn and spark ML package. <br>
 I decided to solve the age old problem statement of building a classification model that predict if a credit card user would default. I used the Kaggle dataset 'Give me some credit' for this purpose. <br>
@@ -12,7 +12,7 @@ The dataset originally consists of two sections training and test dataset with 1
 
 ---
 
-The major steps involved are as follows:
+**The major steps involved are as follows:** <br>
 
 (1) Initializing a Spark Session and scp data to remote <br>
 (2) Exploartory Data Analysis <br>
@@ -54,8 +54,7 @@ Default_60_89ds.add('Defaulter',  df[df['SeriousDlqin2yrs'] == 1.0 ]['NumberOfTi
 Default_60_89ds.render_to_file('Default_60_89ds.svg')
 
 ```
-
-![Hist_60_89](SubImages/EDA/60_89_SD.png)
+<img src="https://github.com/SanchayniB/ClassificationModelsinPySpark/blob/master/SubImages/EDA/Age_SD.PNG"> 
 
 Boxplot
 ``` Spark
