@@ -30,7 +30,7 @@ scp -P 2222m local_file_location/filename.csv username@localhost:/home/dev
 ```
 
 Spark Session
-```
+```Python
 from pyspark.sql import SparkSession
 spark = SparkSession.builder.appName('ml-bank').getOrCreate()
 spark.conf.set("spark.sql.execution.arrow.enabled", "true")
@@ -44,7 +44,7 @@ I also performed Exploratory Data Analysis on the dataset to get a thorough unde
 
 Histogram plot
 
-``` Spark
+``` Python
 Import pygal
 Default_60_89ds = pygal.Bar(x_label_rotation=45)
 Default_60_89ds.title = ' Default across NumberOfTime60-89DaysPastDueNotWorse'
@@ -54,10 +54,12 @@ Default_60_89ds.add('Defaulter',  df[df['SeriousDlqin2yrs'] == 1.0 ]['NumberOfTi
 Default_60_89ds.render_to_file('Default_60_89ds.svg')
 
 ```
-<center> <img src="https://github.com/SanchayniB/ClassificationModelsinPySpark/blob/master/SubImages/EDA/60_89_SD.PNG" alt="histplot" width="300"> </center> 
+<p align="center">
+<img src="https://github.com/SanchayniB/ClassificationModelsinPySpark/blob/master/SubImages/EDA/60_89_SD.PNG" alt="histplot" width="400">
+</p>
 
 Boxplot
-``` Spark
+``` Python
 BP_age_default = pygal.Box(box_mode="1.5IQR")
 BP_age_default.title = 'Age variation across Default'
 BP_age_default.add('Defaulter', df[df['SeriousDlqin2yrs'] == 1.0].age)
@@ -65,13 +67,15 @@ BP_age_default.add('Non Defaulter', df[df['SeriousDlqin2yrs'] == 0.0].age)
 BP_age_default.render_to_file('BP_age_default.svg')
 ``` 
 
-<img src="https://github.com/SanchayniB/ClassificationModelsinPySpark/blob/master/SubImages/EDA/Age_SD.PNG" alt="boxplot" width="300"> 
+<p align="center">
+<img src="https://github.com/SanchayniB/ClassificationModelsinPySpark/blob/master/SubImages/EDA/Age_SD.PNG" alt="boxplot" width="400"> 
+</p>
 
 ## (3) Data processing and transformation 
 ### Imputation
 There was NA present in two columns of the dataset, rather than replacing by zero or removing the entry I used Imputer from ml.feature  <br>
 
-``` 
+```Python
 from pyspark.ml.feature import Imputer
 imputer = Imputer(inputCols = cols, outputCols = cols)
 imputer_model = imputer.fit(data)
@@ -80,14 +84,14 @@ imputed_data = imputer_model.transform(data)
 ### Standardization
 As I was planning on builidng Logistic Regression model I did standardizing using StandardScaler() function. Before standardizing the data needs to be vectorized for easier access to the variables while modelling and faster transformation
 
-```
+```Python
 from pyspark.ml.feature import VectorAssembler
 assembler = VectorAssembler(inputCols = cols, outputCol = 'features')
 data = assembler.transform(data)
 data.select("features").show(truncate = False)
 ```
 
-```
+```Python
 from pyspark.ml.feature import StandardScaler
 standardscaler=StandardScaler().setInputCol("features").setOutputCol("Scaled_features")
 data = standardscaler.fit(data).transform(data)
@@ -98,7 +102,7 @@ data = standardscaler.fit(data).transform(data)
 
 As we have imbalanced data, I used stratified sampling for splitting into train and test dataset rather than random sampling. We can perform this by using sampleBy function and providing the fractions parameter equal weights for both classes.
 
-```
+```Python
 train_fractions = {0: 0.70, 1: 0.70}
 train = data.sampleBy('SeriousDlqin2yrs',fractions = train_fractions ,seed= 1232)
 test = data.subtract(train) 
