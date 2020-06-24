@@ -54,6 +54,7 @@ Default_60_89ds.add('Defaulter',  df[df['SeriousDlqin2yrs'] == 1.0 ]['NumberOfTi
 Default_60_89ds.render_to_file('Default_60_89ds.svg')
 
 ```
+
 ![Hist_60_89](SubImages/EDA/60_89_SD.png)
 
 Boxplot
@@ -64,6 +65,7 @@ BP_age_default.add('Defaulter', df[df['SeriousDlqin2yrs'] == 1.0].age)
 BP_age_default.add('Non Defaulter', df[df['SeriousDlqin2yrs'] == 0.0].age)
 BP_age_default.render_to_file('BP_age_default.svg')
 ``` 
+
 ![BoxplotAge](SubImages/EDA/Age_SD.png)
 
 ## (3) Data processing and transformation 
