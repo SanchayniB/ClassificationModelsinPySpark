@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@author: Sanchayni
+@author: Sanchayni Bagade, bagade94san@gmail.com
 
 # CSP 554 | BIG DATA
 # Prof. Joseph Rosen
@@ -27,7 +27,7 @@ def Evaluation_metrics(predictions_train,predictions_test, target_col  , predict
     accuracy_test = np.round(100 - (sum(np.abs(predictions_test[prediction_col] - 
                     predictions_test[target_col]))*100/ len(predictions_test)),3)
     
-    # Confusion Metric
+    # Confusion Matrix
     
     TP_test =  float(sum((predictions_test[target_col] == 0) & (predictions_test[prediction_col] == 0)))
     FP_test =  float(sum((predictions_test[target_col] == 1) & (predictions_test[prediction_col] == 0)))
@@ -36,11 +36,13 @@ def Evaluation_metrics(predictions_train,predictions_test, target_col  , predict
     
     Recall_test = np.round(TP_test/ (TP_test+ FN_test),3)
     Precision_test =  np.round(TP_test / (TP_test + FP_test ),3)
+    F1 = 2*Recall_test*Precision_test/(Recall_test+ Precision_test)
     
     metrics = dict()
     metrics['Accuracy'] = [accuracy_train, accuracy_test]
     metrics['Precision'] = Precision_test
     metrics['Recall'] = Recall_test
+    metrics['F1score'] = F1 
     
     return(metrics)
 
@@ -383,7 +385,7 @@ print("The AUC for Decision Tree (Test) = {}".format(evaluator_AUC.evaluate(pred
 print(' ------------------------------------ Random Forest --------------------------')
 
 from pyspark.ml.classification import RandomForestClassifier
-from pyspark.ml.feature import IndexToString
+from pyspark.ml.feature import IndexToString 
 
 RF_t1 = RandomForestClassifier(labelCol="indexedLabel", featuresCol="indexedFeatures", 
                                      numTrees=20, featureSubsetStrategy="auto",
